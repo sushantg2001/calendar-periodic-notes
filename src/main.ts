@@ -8,9 +8,11 @@ import {
 	CalendarPeriodicNotesSettingTab,
 	mergeSettings,
 } from "./settings";
+import { getFormat } from "./settings";
 import { CalendarView } from "./ui/view";
+import { CreateNoteModal } from "./ui/create-note-modal";
 import { JumpToDateModal } from "./ui/jump-to-date-modal";
-import type { PluginSettings } from "./types";
+import type { Granularity, PluginSettings } from "./types";
 
 export default class CalendarPeriodicNotesPlugin extends Plugin {
 	settings!: PluginSettings;
@@ -71,6 +73,21 @@ export default class CalendarPeriodicNotesPlugin extends Plugin {
 			},
 		});
 
+		this.addCommand({
+			id: "create-periodic-note",
+			name: "Create periodic note…",
+			checkCallback: (checking) => {
+				const granularities = this.api.getGranularities();
+				if (granularities.length === 0) {
+					return false;
+				}
+				if (!checking) {
+					this.openCreateNoteModal(granularities);
+				}
+				return true;
+			},
+		});
+
 		for (const command of getCommands(this)) {
 			this.addCommand(command);
 		}
@@ -81,6 +98,23 @@ export default class CalendarPeriodicNotesPlugin extends Plugin {
 	async saveSettings(): Promise<void> {
 		await this.saveData(this.settings);
 		this.getCalendarView()?.onSettingsChange();
+	}
+
+	private openCreateNoteModal(granularities: Granularity[]): void {
+		new CreateNoteModal(this.app, {
+			granularities,
+			initialGranularity: granularities.includes("day")
+				? "day"
+				: (granularities[0] ?? "day"),
+			getFormat: (granularity) => getFormat(this.settings, granularity),
+			getNotePath: (granularity, date) =>
+				this.notesManager.getNotePath(granularity, date),
+			noteExists: (granularity, date) =>
+				this.notesManager.getNote(granularity, date) !== null,
+			onSubmit: (granularity, date) => {
+				void this.notesManager.openNote(granularity, date);
+			},
+		}).open();
 	}
 
 	private getCalendarView(): CalendarView | null {

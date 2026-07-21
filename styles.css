@@ -147,3 +147,42 @@
 .jump-to-date-month-grid button {
 	padding: 0.5em 0;
 }
+
+.cpn-create-granularities {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	margin: 1em 0 0.75em;
+}
+
+.cpn-create-granularities button {
+	text-transform: capitalize;
+}
+
+.cpn-create-input {
+	width: 100%;
+}
+
+.cpn-create-preview {
+	color: var(--text-muted);
+	display: flex;
+	flex-direction: column;
+	font-size: var(--font-ui-small);
+	gap: 0.15em;
+	margin: 0.5em 0 1em;
+	min-height: 2.4em;
+}
+
+.cpn-create-preview-path {
+	color: var(--text-normal);
+	font-family: var(--font-monospace);
+	word-break: break-all;
+}
+
+.cpn-create-preview-exists {
+	color: var(--text-accent);
+}
+
+.cpn-create-preview-invalid {
+	color: var(--text-error);
+}

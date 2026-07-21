@@ -1,6 +1,6 @@
 {
 	"name": "calendar-periodic-notes",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Obsidian plugin combining a calendar view with periodic notes",
 	"main": "main.js",
 	"type": "module",

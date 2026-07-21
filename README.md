@@ -14,6 +14,7 @@ An Obsidian plugin that combines a calendar view with periodic notes (daily, wee
   - **Open today's daily note** (and the equivalent for week/month/quarter/year)
   - **Create today's daily note** — creates the note without opening it
   - **Jump forwards/backwards to closest note** — navigate between existing notes relative to the active one
+- **Create periodic note…** — a quick-add input dialog to create (or open) a note for *any* period: pick a granularity, then type `today`, a relative offset like `+1`/`-2` (in that granularity's unit), or a date such as `2024-03-15`. A live preview shows the resolved note path before you commit.
 - Template placeholders: `{{title}}`, `{{date}}`, `{{date:FORMAT}}`, `{{time}}`, `{{time:FORMAT}}`.
 
 ### Calendar
